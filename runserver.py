@@ -25,6 +25,7 @@ from pogom.search import search_overseer_thread
 from pogom.models import (init_database, create_tables, drop_tables,
                           Pokemon, PlayerLocale, db_updater, clean_db_loop,
                           verify_table_encoding, verify_database_schema)
+from pogom.geofence import Geofences
 from pogom.webhook import wh_updater
 
 from pogom.proxy import check_proxies, proxies_refresher
@@ -332,6 +333,9 @@ def main():
 
     config['ROOT_PATH'] = app.root_path
     config['GMAPS_KEY'] = args.gmaps_key
+
+    # Create Geofences object and save into args
+    args.geofences = Geofences(args, db_updates_queue)
 
     if not args.only_server:
         # Check if we are able to scan.
