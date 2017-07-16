@@ -413,7 +413,7 @@ function openMapDirections(lat, lng) { // eslint-disable-line no-unused-vars
 function getDateStr(t) {
     var dateStr = 'Unknown'
     if (t) {
-        dateStr = moment(t).startOf('hour').fromNow()
+        dateStr = moment(t).fromNow()
     }
     return dateStr
 }
@@ -1014,18 +1014,18 @@ function updateGymMarker(item, marker) {
     if (item.raid !== null && item.raid.end > Date.now() && item.raid.pokemon_id !== null) {
         marker.setIcon({
             url: 'static/images/raid/' + item.raid.pokemon_id + '.png',
-            scaledSize: new google.maps.Size(48, 48)
+            scaledSize: new google.maps.Size(36, 36)
         })
         marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1)
     } else if (item.raid !== null && item.raid.end > Date.now()) {
         marker.setIcon({
             url: 'static/images/raid/' + gymTypes[item.team_id] + '_' + getGymLevel(item) + '_' + item['raid']['level'] + '.png',
-            scaledSize: new google.maps.Size(48, 48)
+            scaledSize: new google.maps.Size(36, 36)
         })
     } else {
         marker.setIcon({
             url: 'static/images/gym/' + gymTypes[item.team_id] + '_' + getGymLevel(item) + '.png',
-            scaledSize: new google.maps.Size(48, 48)
+            scaledSize: new google.maps.Size(36, 36)
         })
         marker.setZIndex(1)
     }
@@ -2244,6 +2244,7 @@ $(function () {
 })
 
 $(function () {
+    moment.locale(language)
     function formatState(state) {
         if (!state.id) {
             return state.text
